@@ -3,6 +3,7 @@
 MinOZW
 cpp/src/vers.cpp
 libopenzwave.a
+libopenzwave*.dylib
 libopenzwave.pc
 libopenzwave.so*
 libopenzwave.so

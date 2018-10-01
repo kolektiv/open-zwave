@@ -13,9 +13,9 @@
 
 
 # what flags we will use for compiling in debug mode
-DEBUG_CFLAGS    := -Wall -Wno-unknown-pragmas -Wno-inline -Wno-format -Werror -Wno-error=sequence-point -Wno-sequence-point -ggdb -DDEBUG -fPIC  -DSYSCONFDIR="\"$(PREFIX)/etc/openzwave/\""
+DEBUG_CFLAGS    := -Wall -Wno-unused-private-field -Wno-unknown-pragmas -Wno-inline -Wno-format -Werror -Wno-error=sequence-point -Wno-sequence-point -ggdb -DDEBUG -fPIC  -DSYSCONFDIR="\"$(PREFIX)/etc/openzwave/\""
 # what flags we will use for compiling in release mode
-RELEASE_CFLAGS  := -Wall -Wno-unknown-pragmas -Werror -Wno-format -Wno-error=sequence-point -Wno-sequence-point -O3 -DNDEBUG -fPIC  -DSYSCONFDIR="\"$(PREFIX)/etc/openzwave/\""
+RELEASE_CFLAGS  := -Wall -Wno-unused-private-field -Wno-unknown-pragmas -Werror -Wno-format -Wno-error=sequence-point -Wno-sequence-point -O3 -DNDEBUG -fPIC  -DSYSCONFDIR="\"$(PREFIX)/etc/openzwave/\""
 #what flags we will use for linking in debug mode
 DEBUG_LDFLAGS	:= -g
 
@@ -35,9 +35,11 @@ endif
 #if we are on a Mac, add these flags and libs to the compile and link phases 
 ifeq ($(UNAME),Darwin)
 CFLAGS	+= -c -DDARWIN
-TARCH	+= -arch i386 -arch x86_64
+#TARCH	+= -arch i386 -arch x86_64
+TARCH	+= -arch x86_64
 LDFLAGS += -dynamiclib -install_name "$(DESTDIR)/$(instlibdir)/$(SHARED_LIB_NAME)"
-LIBS	+= -framework IOKit -framework CoreFoundation -arch i386 -arch x86_64
+#LIBS	+= -framework IOKit -framework CoreFoundation -arch i386 -arch x86_64
+LIBS	+= -framework IOKit -framework CoreFoundation -arch x86_64
 else ifeq ($(UNAME),FreeBSD)
 LDFLAGS+= -shared -lusb -Wl,-soname,$(SHARED_LIB_NAME)
 
